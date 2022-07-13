@@ -8,16 +8,24 @@ class ProductsContainer {
 
   // obtener todos los productos
   async getAllProducts(){
-    this.products = await readFile('productos.txt')
-    console.log(this.products)
-    return this.products
+    try{
+      this.products = await readFile('productos.txt')
+      console.log(this.products)
+      return this.products
+    }catch(error){
+      console.log(error)
+    }
   }
 
   // obtener productos por ID
   async getProductById(id){
-    this.products = await readFile('productos.txt')
-    const product = this.products.filter(element => element.id === id);
-    return product
+    try{
+      this.products = await readFile('productos.txt')
+      const product = this.products.filter(element => element.id === id);
+      return product
+    }catch(error){
+      console.log(error)
+    }
   }
 
   // agregar producto
@@ -58,23 +66,31 @@ class ProductsContainer {
 
   // actualizar producto
   async updateProduct(id ,title, description, code, price, thumbnail, stock){
-    this.products = await readFile('productos.txt')
-    const index = this.products.findIndex(product => product.id === id)
-    this.products[index].title = title
-    this.products[index].description = description
-    this.products[index].code = code
-    this.products[index].price = price
-    this.products[index].thumbnail = thumbnail
-    this.products[index].timestamp = Date.now
-    this.products[index].stock = stock
+    try{
+      this.products = await readFile('productos.txt')
+      const index = this.products.findIndex(product => product.id === id)
+      this.products[index].title = title
+      this.products[index].description = description
+      this.products[index].code = code
+      this.products[index].price = price
+      this.products[index].thumbnail = thumbnail
+      this.products[index].timestamp = Date.now
+      this.products[index].stock = stock
+    }catch(error){
+      console.log(error)
+    }
   }
 
   // eliminar producto por ID
   async deleteProductById(id){
-    this.products = await readFile('productos.txt')
-    const object = this.products.filter(element => element.id != id);
-    this.products = object
-    await writeFile('productos.txt', this.products)
+    try{
+      this.products = await readFile('productos.txt')
+      const object = this.products.filter(element => element.id != id);
+      this.products = object
+      await writeFile('productos.txt', this.products)
+    }catch(error){
+      console.log(error)
+    }
   }
 }
 

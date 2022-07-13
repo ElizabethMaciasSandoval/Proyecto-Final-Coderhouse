@@ -1,13 +1,15 @@
 const { Router } = require('express');
 const router = Router(); 
 // importo los controladores
-const {} = require('../controllers/productsController')
+const { getAllProducts, getProductById, addProduct, updateProduct, deleteProductById } = require('../controllers/productsController')
+// middleware para autorizar a administrador
+const { authorizeMidelware } = require('../middelwares/authorizeMiddleware')
 // rutas de Productos
-router.get('/api/productos')
-router.get('/api/productos:id')
+router.get('/', getAllProducts)
+router.get('/:id', getProductById)
 // rutas de productos acceso solo administrador
-router.post('/api/productos')
-router.put('/api/productos:id')
-router.delete('/api/productos:id')
+router.post('/', authorizeMidelware, addProduct)
+router.put('/:id', authorizeMidelware, updateProduct)
+router.delete('/:id', authorizeMidelware, deleteProductById)
 
 module.exports = router;

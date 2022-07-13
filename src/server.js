@@ -1,4 +1,3 @@
-require('dotenv').config()
 const express = require('express');
 const app = express();
 const puerto = process.env.PORT || 8080;
@@ -11,6 +10,12 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use("/api/productos", productsRouter);
 app.use("/api/carrito", cartsRouter);
+
+app.use((req, res) => {
+  res.status(404).json({
+    error: -2,
+    descripcion:`ruta ${req.url} método: ${req.method}`})
+})
 
 app.listen(puerto, error => {
   if(error){
